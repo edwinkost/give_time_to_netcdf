@@ -70,42 +70,36 @@ def main():
     var.long_name = variable_short_name
     var.units = varUnits
 
+    # important attributes needed to be copied
+    attribute_keys = ['institution', 'title', 'description', 'history']
+    for key in attribute_keys:
+        try:
+            setattr(out_rootgrp, key, vars(inp_rootgrp)[key])
+        except:
+            pass
+    
+    # syncing and closing output netcdf file
+    out_rootgrp.sync()
+    out_rootgrp.close()
+
+    
     # UNTIL THIS PART
     
-    # important attributes
-    k = 
-    v = 
-    # TODO: copy also 
-    attributeDictionary = self.attributeDictionary
-    for k, v in attributeDictionary.items(): setattr(rootgrp,k,v)
+    # copying data to 
+    def data2NetCDF(self, ncFileName, shortVarName, varField, timeStamp, posCnt = None):
 
-    rootgrp.sync()
-    rootgrp.close()
+        rootgrp = nc.Dataset(ncFileName,'a')
+
+        date_time = rootgrp.variables['time']
+        if posCnt == None: posCnt = len(date_time)
+        date_time[posCnt] = nc.date2num(timeStamp,date_time.units,date_time.calendar)
+
+        rootgrp.variables[shortVarName][posCnt,:,:] = varField
+
+        rootgrp.sync()
+        rootgrp.close()
 
 
-    
-
-
-    # prepare logger and its directory
-    log_file_location = output['folder'] + "/log/"
-    try:
-        os.makedirs(log_file_location)
-    except:
-        pass
-    vos.initialize_logging(log_file_location)
-    
-    # time object
-    modelTime = ModelTime() # timeStep info: year, month, day, doy, hour, etc
-    modelTime.getStartEndTimeSteps(startDate, endDate)
-    
-    calculationModel = CalcFramework(cloneMapFileName,\
-                                     input_files, \
-                                     modelTime, \
-                                     output)
-
-    dynamic_framework = DynamicFramework(calculationModel, modelTime.nrOfTimeSteps)
-    dynamic_framework.setQuiet(True)
-    dynamic_framework.run()
 
 if __name__ == '__main__':
     sys.exit(main())
