@@ -3,6 +3,7 @@
 
 import os
 import sys
+import datetime
 
 import numpy as np
 import pcraster as pcr
@@ -82,24 +83,18 @@ def main():
     out_rootgrp.sync()
     out_rootgrp.close()
 
-    
-    # UNTIL THIS PART
-    
-    # copying data to 
-    def data2NetCDF(self, ncFileName, shortVarName, varField, timeStamp, posCnt = None):
+    # copying data to a specific time
+    date_used = str(date_string).split('-')
+    if time_string = "00:00:00": time_used = int(0)
+    time_stamp = datetime.date(int(date_used[0]), int(date_used[1]), int(date_used[2]), time_used)
+    date_time = out_rootgrp.variables['time']
+    posCnt = len(date_time) # this should be zero
+    date_time[posCnt] = nc.date2num(time_stamp, date_time.units, date_time.calendar)
+    out_rootgrp.variables[shortVarName][posCnt,:,:] = inp_rootgrp.variables[shortVarName][:,:]
 
-        rootgrp = nc.Dataset(ncFileName,'a')
-
-        date_time = rootgrp.variables['time']
-        if posCnt == None: posCnt = len(date_time)
-        date_time[posCnt] = nc.date2num(timeStamp,date_time.units,date_time.calendar)
-
-        rootgrp.variables[shortVarName][posCnt,:,:] = varField
-
-        rootgrp.sync()
-        rootgrp.close()
-
-
+    # syncing and closing output netcdf file
+    out_rootgrp.sync()
+    out_rootgrp.close()
 
 if __name__ == '__main__':
     sys.exit(main())
