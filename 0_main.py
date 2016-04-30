@@ -50,6 +50,7 @@ def main():
     date_time.calendar  = 'standard'
 
     # create latitude
+    out_rootgrp.createDimension('lat', len(latitudes))
     lat = out_rootgrp.createVariable('lat', 'f4', ('lat', ))
     lat.long_name = 'latitude'
     lat.units = 'degrees_north'
@@ -57,6 +58,7 @@ def main():
     lat[:] = latitudes
 
     # create longitude
+    out_rootgrp.createDimension('lon', len(longitudes))
     lon = out_rootgrp.createVariable('lon', 'f4', ('lon', ))
     lon.long_name = 'longitude'
     lon.units = 'degrees_east'
