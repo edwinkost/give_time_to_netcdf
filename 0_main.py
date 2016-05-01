@@ -84,9 +84,9 @@ def main():
         except:
             pass
     
-    # syncing and closing output netcdf file
-    out_rootgrp.sync()
-    out_rootgrp.close()
+    #~ # syncing and closing output netcdf file
+    #~ out_rootgrp.sync()
+    #~ out_rootgrp.close()
 
     # copying data to a specific time
     date_used = str(date_string).split('-')
