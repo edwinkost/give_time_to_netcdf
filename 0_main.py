@@ -69,10 +69,13 @@ def main():
     shortVarName = variable_short_name 
     longVarName  = inp_rootgrp.variables[variable_short_name].long_name
     var = out_rootgrp.createVariable(shortVarName, 'f4', ('time', 'lat', 'lon',), fill_value = inp_rootgrp.variables["Band1"]._FillValue, zlib = zlib_option)
-    var.standard_name = varName
-    var.long_name = variable_short_name
-    var.units = varUnits
-
+    var.standard_name = shortVarName
+    var.long_name = longVarName
+    try:
+        var.units = varUnits
+    except:
+        var.units = 1
+		
     # important attributes needed to be copied
     attribute_keys = ['institution', 'title', 'description', 'history']
     for key in attribute_keys:
