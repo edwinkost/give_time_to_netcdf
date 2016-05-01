@@ -91,7 +91,7 @@ def main():
     # copying data to a specific time
     date_used = str(date_string).split('-')
     if time_string == "00:00:00": time_used = int(0)
-    time_stamp = datetime.date(int(date_used[0]), int(date_used[1]), int(date_used[2]), time_used)
+    time_stamp = datetime.datetime(int(date_used[0]), int(date_used[1]), int(date_used[2]), time_used)
     date_time = out_rootgrp.variables['time']
     posCnt = len(date_time) # this should be zero
     date_time[posCnt] = nc.date2num(time_stamp, date_time.units, date_time.calendar)
