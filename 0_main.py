@@ -93,7 +93,7 @@ def main():
     if time_string == "00:00:00": time_used = int(0)
     time_stamp = datetime.datetime(int(date_used[0]), int(date_used[1]), int(date_used[2]), time_used)
     date_time = out_rootgrp.variables['time']
-    posCnt = len(date_time) # this should be zero
+    posCnt = 0 # len(date_time) # this should be zero
     date_time[posCnt] = nc.date2num(time_stamp, date_time.units, date_time.calendar)
     out_rootgrp.variables[shortVarName][posCnt,:,:] = inp_rootgrp.variables[shortVarName][:,:]
 
