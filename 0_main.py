@@ -72,9 +72,9 @@ def main():
     var.standard_name = shortVarName
     var.long_name = longVarName
     try:
-        var.units = varUnits
+        var.units = inp_rootgrp.variables[variable_short_name].units
     except:
-        var.units = 1
+        pass # or var.units = 1
 		
     # important attributes needed to be copied
     attribute_keys = ['institution', 'title', 'description', 'history']
@@ -84,21 +84,13 @@ def main():
         except:
             pass
     
-    #~ # syncing and closing output netcdf file
-    #~ out_rootgrp.sync()
-    #~ out_rootgrp.close()
-
     # copying data to a specific time
     date_used = str(date_string).split('-')
     if time_string == "00:00:00": time_used = int(0)
     time_stamp = datetime.datetime(int(date_used[0]), int(date_used[1]), int(date_used[2]), time_used)
     
-    print ""
-    print time_stamp
-    print ""
-    
     date_time = out_rootgrp.variables['time']
-    posCnt = 0 # len(date_time) # this should be zero
+    posCnt = 0
     date_time[posCnt] = nc.date2num(time_stamp, date_time.units, date_time.calendar)
     out_rootgrp.variables[shortVarName][posCnt,:,:] = inp_rootgrp.variables[shortVarName][:,:]
 
