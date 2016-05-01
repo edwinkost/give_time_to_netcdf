@@ -68,7 +68,7 @@ def main():
     # create variables
     shortVarName = variable_short_name 
     longVarName  = inp_rootgrp.variables[variable_short_name].long_name
-    var = rootgrp.createVariable(shortVarName, 'f4', ('time', 'lat', 'lon',), fill_value = inp_rootgrp.variables["Band1"]._FillValue, zlib = zlib_option)
+    var = out_rootgrp.createVariable(shortVarName, 'f4', ('time', 'lat', 'lon',), fill_value = inp_rootgrp.variables["Band1"]._FillValue, zlib = zlib_option)
     var.standard_name = varName
     var.long_name = variable_short_name
     var.units = varUnits
