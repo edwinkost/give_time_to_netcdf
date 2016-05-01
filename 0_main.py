@@ -98,5 +98,7 @@ def main():
     out_rootgrp.sync()
     out_rootgrp.close()
 
+    print("all done")
+
 if __name__ == '__main__':
     sys.exit(main())
